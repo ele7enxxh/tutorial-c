@@ -12,3 +12,13 @@ targets:
   sanitizers:
     address: detect_stack_use_after_return=1
   corpus: ./corpus
+- name: aaa
+  language: c++
+  setup:
+    - $FUZZ_CXX $CXXFLAGS -c ./api.h ./api.cpp
+    - $FUZZ_CXX $CXXFLAGS ./api.o ./harness.cpp $FUZZ_ENGINE -o ./target
+  harness: 
+    binary: ./target
+  sanitizers:
+    address: detect_stack_use_after_return=1
+  corpus: ./corpus
